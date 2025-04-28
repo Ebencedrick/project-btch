@@ -256,7 +256,62 @@
                     <h2>Monthly Performance</h2>
                     <p>Graphical representation of revenue and user activity.</p>
                 </div>
+                <div class="demo">
+                    <h2>Daily Activities</h2>
+                    <canvas id="daily-activities-chart" width="400" height="200"></canvas>
+                </div>
             </section>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const ctx = document.getElementById('daily-activities-chart').getContext('2d');
+                    const dailyActivitiesChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                            datasets: [
+                                {
+                                    label: 'Daily Activities',
+                                    data: [120, 150, 180, 200, 170, 140, 100],
+                                    backgroundColor: [
+                                        '#007bff',
+                                        '#28a745',
+                                        '#ffc107',
+                                        '#dc3545',
+                                        '#17a2b8',
+                                        '#6c757d',
+                                        '#343a40',
+                                    ],
+                                    borderColor: [
+                                        '#0056b3',
+                                        '#218838',
+                                        '#e0a800',
+                                        '#c82333',
+                                        '#138496',
+                                        '#5a6268',
+                                        '#23272b',
+                                    ],
+                                    borderWidth: 1,
+                                },
+                            ],
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'top',
+                                },
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                },
+                            },
+                        },
+                    });
+                });
+            </script>
             <section id="settings">
                 <h1>Settings</h1>
                 <p>Configure admin settings and preferences.</p>
