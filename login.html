@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Real Estate</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="container-nav">
+        <div class="logo">
+          <img src="img/logo.jpg" width="55px" height="60px" />
+          <!-- Replace "Your Logo" with your actual logo image or text -->
+        </div>
+        <ul class="nav-links">
+          <li><a href="home.html" class="active">Rent</a></li>
+          <li><a href="buy.html">Buy</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="auth">
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="sign up.html" class="signup-btn">Sign Up</a>
+        </div>
+      </div>
+    </nav>
+    <section class="login-section">
+      <div class="login-container">
+        <h1>Login</h1>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="login-btn">Login</button>
+            <button
+              type="button"
+              onclick="location.href='admin-login.html'"
+              class="admin-login-btn"
+            >
+              Login as Admin
+            </button>
+          </div>
+        </form>
+        <p>
+          Don't have an account?
+          <a href="sign up.html" class="signup-link">Sign Up</a>
+        </p>
+      </div>
+    </section>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section footer-about">
+          <h3>About Us</h3>
+          <p>
+            Start your real estate journey today with us. Your comfort and
+            safety are our priority.
+          </p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a href="#" aria-label="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" aria-label="WhatsApp"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section footer-contact">
+          <h3>Contact Us</h3>
+          <p>Eben's Real Estate</p>
+          <p>Email: info@ebensrealestate.com</p>
+          <p>Phone: +123 456 7890</p>
+        </div>
+        <div class="footer-section footer-logo">
+          <img src="img/logo.jpg" alt="Company Logo" />
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Eben's Real Estate. All rights reserved.</p>
+      </div>
+    </footer>
+    <script>
+      const loginForm = document.getElementById("login-form");
+      loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // Mock validation for user credentials
+        const validEmail = "user@example.com";
+        const validPassword = "User@2025";
+
+        if (email === validEmail && password === validPassword) {
+          sessionStorage.setItem("isUserLoggedIn", true); // Set session flag
+          alert("Login successful!");
+          window.location.href = "contact.html"; // Redirect to home page
+        } else {
+          alert("Invalid credentials. Please try again.");
+        }
+      });
+    </script>
+  </body>
+</html>

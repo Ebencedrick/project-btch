@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Settings</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="container-nav">
+        <div class="logo">
+          <img src="img/logo.jpg" width="55px" height="60px" />
+        </div>
+        <ul class="nav-links">
+          <li><a href="admin.html">Dashboard</a></li>
+        </ul>
+        <div class="auth">
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="signup.html" class="signup-btn">Sign Up</a>
+        </div>
+      </div>
+    </nav>
+    <section class="settings-section">
+      <h1>System Settings</h1>
+      <form id="settings-form" class="settings-form">
+        <div class="form-group">
+          <label for="site-name">Site Name:</label>
+          <input
+            type="text"
+            id="site-name"
+            name="siteName"
+            placeholder="Enter site name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="admin-email">Admin Email:</label>
+          <input
+            type="email"
+            id="admin-email"
+            name="adminEmail"
+            placeholder="Enter admin email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="contact-number">Contact Number:</label>
+          <input
+            type="text"
+            id="contact-number"
+            name="contactNumber"
+            placeholder="Enter contact number"
+          />
+        </div>
+        <div class="form-group">
+          <label for="maintenance-mode">Maintenance Mode:</label>
+          <select id="maintenance-mode" name="maintenanceMode">
+            <option value="off">Off</option>
+            <option value="on">On</option>
+          </select>
+        </div>
+        <button
+          type="button"
+          onclick="saveSettings()"
+          class="save-settings-btn"
+        >
+          Save Settings
+        </button>
+      </form>
+    </section>
+    <script>
+      // Load settings from localStorage
+      const settingsForm = document.getElementById("settings-form");
+      const settings = JSON.parse(localStorage.getItem("settings")) || {
+        siteName: "",
+        adminEmail: "",
+        contactNumber: "",
+        maintenanceMode: "off",
+      };
+
+      // Populate form with existing settings
+      document.getElementById("site-name").value = settings.siteName;
+      document.getElementById("admin-email").value = settings.adminEmail;
+      document.getElementById("contact-number").value = settings.contactNumber;
+      document.getElementById("maintenance-mode").value = settings.maintenanceMode;
+
+      function saveSettings() {
+        const updatedSettings = {
+          siteName: document.getElementById("site-name").value,
+          adminEmail: document.getElementById("admin-email").value,
+          contactNumber: document.getElementById("contact-number").value,
+          maintenanceMode: document.getElementById("maintenance-mode").value,
+        };
+        localStorage.setItem("settings", JSON.stringify(updatedSettings));
+        alert("Settings saved successfully!");
+      }
+    </script>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section footer-about">
+          <h3>About Us</h3>
+          <p>We provide the best services for your needs.</p>
+        </div>
+        <div class="footer-section footer-contact">
+          <h3>Contact Us</h3>
+          <p>Email: support@example.com</p>
+          <p>Phone: +123 456 7890</p>
+        </div>
+        <div class="footer-section social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Your Company. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

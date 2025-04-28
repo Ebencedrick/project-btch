@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="dashboad.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuLinks = document.querySelectorAll('.sidebar nav ul li a');
+            const sections = document.querySelectorAll('.main-content section');
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // Remove active class from all links
+                    menuLinks.forEach(link => link.classList.remove('active'));
+
+                    // Add active class to clicked link
+                    link.classList.add('active');
+
+                    // Hide all sections
+                    sections.forEach(section => section.style.display = 'none');
+
+                    // Show the clicked section
+                    const targetId = link.getAttribute('href').substring(1);
+                    document.getElementById(targetId).style.display = 'block';
+                });
+            });
+
+            // Initialize by showing the first section
+            menuLinks[0].classList.add('active');
+            sections.forEach((section, index) => {
+                section.style.display = index === 0 ? 'block' : 'none';
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#properties">Manage Properties</a></li>
+                    <li><a href="#users">Manage Users</a></li>
+                    <li><a href="#analytics">Analytics</a></li>
+                    <li><a href="#settings">Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <section id="dashboard">
+                <h1>Dashboard Overview</h1>
+                <p>Welcome to the admin panel. Here you can manage properties, users, and view analytics.</p>
+                <div class="demo">
+                    <h2>Quick Stats</h2>
+                    <ul>
+                        <li>Total Properties: 120</li>
+                        <li>Active Users: 450</li>
+                        <li>Monthly Revenue: $25,000</li>
+                    </ul>
+                </div>
+            </section>
+            <section id="properties">
+                <h1>Manage Properties</h1>
+                <p>Feature to add, edit, or delete property listings.</p>
+                <button onclick="addProperty()" class="add-property-btn">Add Property</button>
+                <div class="demo">
+                    <h2>Property List</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Property ID</th>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="property-table-body">
+                            <!-- Property rows will be dynamically populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <script>
+                const properties = [
+                    { id: 101, name: 'Luxury Villa', location: 'New York', status: 'Available' },
+                    { id: 102, name: 'Beach House', location: 'California', status: 'Sold' },
+                ];
+
+                // Populate Properties
+                function populateProperties() {
+                    const propertyTableBody = document.getElementById('property-table-body');
+                    propertyTableBody.innerHTML = '';
+                    properties.forEach((property, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${property.id}</td>
+                            <td>${property.name}</td>
+                            <td>${property.location}</td>
+                            <td>${property.status}</td>
+                            <td>
+                                <button onclick="editProperty(${index})" class="edit-btn">Edit</button>
+                                <button onclick="deleteProperty(${index})" class="delete-btn">Delete</button>
+                            </td>
+                        `;
+                        propertyTableBody.appendChild(row);
+                    });
+                }
+
+                // Add Property
+                function addProperty() {
+                    const id = prompt('Enter Property ID:');
+                    const name = prompt('Enter Property Name:');
+                    const location = prompt('Enter Location:');
+                    const status = prompt('Enter Status (Available, Sold):');
+                    if (id && name && location && status) {
+                        properties.push({ id, name, location, status });
+                        populateProperties();
+                    }
+                }
+
+                // Edit Property
+                function editProperty(index) {
+                    const property = properties[index];
+                    const newName = prompt('Edit Property Name:', property.name);
+                    const newLocation = prompt('Edit Location:', property.location);
+                    const newStatus = prompt('Edit Status (Available, Sold):', property.status);
+                    if (newName && newLocation && newStatus) {
+                        properties[index] = { ...property, name: newName, location: newLocation, status: newStatus };
+                        populateProperties();
+                    }
+                }
+
+                // Delete Property
+                function deleteProperty(index) {
+                    properties.splice(index, 1);
+                    populateProperties();
+                }
+
+                // Populate properties on page load
+                document.addEventListener('DOMContentLoaded', populateProperties);
+            </script>
+
+            <section id="users">
+                <h1>Manage Users</h1>
+                <p>Feature to manage user accounts, view reviews, messages, and list users with their locations.</p>
+                
+                <div class="demo">
+                    <h2>User List</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-table-body">
+                            <!-- User rows will be dynamically populated -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="demo">
+                    <h2>User Reviews</h2>
+                    <ul id="user-reviews">
+                        <!-- User reviews will be dynamically populated -->
+                    </ul>
+                </div>
+
+                <div class="demo">
+                    <h2>Messages from Users</h2>
+                    <ul id="user-messages">
+                        <!-- User messages will be dynamically populated -->
+                    </ul>
+                </div>
+            </section>
+
+            <script>
+                const users = [
+                    { id: 1, name: 'John Doe', location: 'New York', role: 'Admin' },
+                    { id: 2, name: 'Jane Smith', location: 'California', role: 'Agent' },
+                    { id: 3, name: 'Michael Brown', location: 'Texas', role: 'Customer' },
+                ];
+
+                const reviews = [
+                    { userId: 1, review: 'Great platform for managing properties.' },
+                    { userId: 2, review: 'Easy to use and very efficient.' },
+                ];
+
+                const messages = [
+                    { userId: 3, message: 'Can you help me with my account setup?' },
+                    { userId: 2, message: 'I need assistance with property listings.' },
+                ];
+
+                // Populate User List
+                function populateUsers() {
+                    const userTableBody = document.getElementById('user-table-body');
+                    userTableBody.innerHTML = '';
+                    users.forEach(user => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.location}</td>
+                            <td>${user.role}</td>
+                        `;
+                        userTableBody.appendChild(row);
+                    });
+                }
+
+                // Populate User Reviews
+                function populateReviews() {
+                    const userReviews = document.getElementById('user-reviews');
+                    userReviews.innerHTML = '';
+                    reviews.forEach(review => {
+                        const li = document.createElement('li');
+                        li.textContent = `User ID ${review.userId}: ${review.review}`;
+                        userReviews.appendChild(li);
+                    });
+                }
+
+                // Populate User Messages
+                function populateMessages() {
+                    const userMessages = document.getElementById('user-messages');
+                    userMessages.innerHTML = '';
+                    messages.forEach(message => {
+                        const li = document.createElement('li');
+                        li.textContent = `User ID ${message.userId}: ${message.message}`;
+                        userMessages.appendChild(li);
+                    });
+                }
+
+                // Populate all components on page load
+                document.addEventListener('DOMContentLoaded', () => {
+                    populateUsers();
+                    populateReviews();
+                    populateMessages();
+                });
+            </script>
+
+            <section id="analytics">
+                <h1>Analytics</h1>
+                <p>View statistics and reports about the platform.</p>
+                <div class="demo">
+                    <h2>Monthly Performance</h2>
+                    <p>Graphical representation of revenue and user activity.</p>
+                </div>
+            </section>
+            <section id="settings">
+                <h1>Settings</h1>
+                <p>Configure admin settings and preferences.</p>
+                <div class="demo">
+                    <h2>Preferences</h2>
+                    <p>Change theme, update profile, and manage notifications.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
