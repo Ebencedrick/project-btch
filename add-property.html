@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Property</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="container-nav">
+        <div class="logo">
+          <img src="img/logo.jpg" width="55px" height="60px" />
+          <span>Admin Panel</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="admin.html">Dashboard</a></li>
+        </ul>
+        <div class="auth">
+          <a href="admin-profile.html" class="profile-icon">
+            <img src="img/admin.jpg" alt="Admin Avatar" class="profile-avatar-icon" />
+          </a>
+          <a href="logout.html" class="logout-btn" style="background-color: #ff4d4d; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; border-radius: 15rem;">Logout</a>
+        </div>
+      </div>
+    </nav>
+    <section class="add-property-section">
+      <h1>Add New Property</h1>
+      <form class="add-property-form" id="add-property-form">
+        <label for="property-name">Property Name:</label>
+        <input type="text" id="property-name" placeholder="Enter property name" required />
+
+        <label for="property-location">Location:</label>
+        <input type="text" id="property-location" placeholder="Enter property location" required />
+
+        <label for="property-price">Price:</label>
+        <input type="number" id="property-price" placeholder="Enter property price" required />
+
+        <label for="property-type">Type:</label>
+        <select id="property-type" required>
+          <option value="apartment">Apartment</option>
+          <option value="house">House</option>
+          <option value="villa">Villa</option>
+          <option value="land">Land</option>
+        </select>
+
+        <label for="property-description">Description:</label>
+        <textarea id="property-description" placeholder="Enter property description" required></textarea>
+
+        <label for="property-image">Upload Image:</label>
+        <input type="file" id="property-image" accept="image/*" required />
+
+        <button type="submit" class="submit-property-btn">Add Property</button>
+      </form>
+    </section>
+    <script>
+      document.getElementById('add-property-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Get property details
+        const propertyName = document.getElementById('property-name').value;
+        const propertyLocation = document.getElementById('property-location').value;
+        const propertyPrice = document.getElementById('property-price').value;
+        const propertyType = document.getElementById('property-type').value;
+        const propertyDescription = document.getElementById('property-description').value;
+
+        // Simulate adding a property
+        alert('Property added successfully!');
+
+        // Store property details in localStorage
+        const properties = JSON.parse(localStorage.getItem('properties')) || [];
+        properties.push({
+          name: propertyName,
+          location: propertyLocation,
+          price: propertyPrice,
+          type: propertyType,
+          description: propertyDescription,
+        });
+        localStorage.setItem('properties', JSON.stringify(properties));
+
+        // Update total properties count
+        const totalPropertiesCount = properties.length;
+        localStorage.setItem('totalProperties', totalPropertiesCount);
+
+        // Redirect to dashboard
+        location.href = 'admin.html';
+      });
+    </script>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section footer-about">
+          <h3>About Us</h3>
+          <p>
+            Start your real estate journey today with us. Your comfort and safety are our priority.
+          </p>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-section footer-contact">
+          <h3>Contact Us</h3>
+          <p>Eben's Real Estate</p>
+          <p>Email: info@ebensrealestate.com</p>
+          <p>Phone: +123 456 7890</p>
+        </div>
+        <div class="footer-section footer-logo">
+          <img src="img/logo.jpg" alt="Company Logo" />
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Eben's Real Estate. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
