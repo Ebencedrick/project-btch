@@ -21,7 +21,10 @@
           <span>Admin Panel</span>
         </div>
         <ul class="nav-links">
-          <li><a href="admin.html">Dashboard</a></li>
+          <li><a href="admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="properties.html"><i class="fas fa-building"></i> Properties</a></li>
+          <li><a href="agents.html"><i class="fas fa-user-tie"></i> Agents</a></li>
+          <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
         </ul>
         <div class="auth">
           <a href="admin-profile.html" class="profile-icon">
@@ -33,6 +36,13 @@
     </nav>
     <section class="add-property-section">
       <h1>Add New Property</h1>
+      <div class="quick-stats-container">
+        <div class="stat-box">
+          <i class="fas fa-user-tie"></i>
+          <h3>Total Agents</h3>
+          <p id="total-agents">50</p>
+        </div>
+      </div>
       <form class="add-property-form" id="add-property-form">
         <label for="property-name">Property Name:</label>
         <input type="text" id="property-name" placeholder="Enter property name" required />
